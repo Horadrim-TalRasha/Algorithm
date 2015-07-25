@@ -17,7 +17,13 @@ int main(int argc, char** argv)
     intQuickSort.CopyData(d, sizeof(d));
     intQuickSort.SetDataLength(sizeof(d) / sizeof(int));
     int *p = intQuickSort.sort();
-    printf("p[0] = %d\n", p[0]);
+    for(int i = 0; i < 6; i++)
+    {
+        printf("p[%d] = %d\n", i, p[i]);
+    }
+
+    printf("\n");
+    printf("SortTimes = %u\n", intQuickSort.SortTimes());
 
     return 0;
 }

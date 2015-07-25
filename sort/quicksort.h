@@ -17,6 +17,7 @@ public:
     {
         Sort<T>::m_pMemAlloc = pMemAlloc;
         Sort<T>::m_pUnsortedData = NULL;
+        m_uiSortTimes = 0;
     }
 
     virtual ~QuickSort()
@@ -40,9 +41,16 @@ public:
     {
         return m_uiDataLength;
     }
+
+    const unsigned int& SortTimes() const
+    {
+        return m_uiSortTimes;
+    }
+
 private:
     void StartQuickSort(const int& uiLeft, const int& uiRight)
     {
+        m_uiSortTimes++;
         if(uiLeft < uiRight)
         {
             T t_key = Sort<T>::m_pUnsortedData[uiLeft];
@@ -54,7 +62,7 @@ private:
                 {
                     uiHigh--;
                 }
-                Sort<T>::m_pUnsortedData[uiLow] = t_key;
+                Sort<T>::m_pUnsortedData[uiLow] = Sort<T>::m_pUnsortedData[uiHigh];
                 while(uiLow < uiHigh && Sort<T>::m_pUnsortedData[uiLow] <= t_key)
                 {
                     uiLow++;
@@ -68,7 +76,8 @@ private:
         }
     }
 
-     int  m_uiDataLength;
+    int  m_uiDataLength;
+    unsigned int m_uiSortTimes;
 };
 
 #endif
