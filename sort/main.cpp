@@ -4,6 +4,7 @@ Data              Author               Content
  */
 
 #include <string.h>
+#include <stdio.h>
 #include "quicksort.h"
 #include "heapmemalloc.h"
 
@@ -15,6 +16,8 @@ int main(int argc, char** argv)
     intQuickSort.Alloc(sizeof(d));
     intQuickSort.CopyData(d, sizeof(d));
     intQuickSort.SetDataLength(sizeof(d) / sizeof(int));
-    intQuickSort.sort();
+    int *p = intQuickSort.sort();
+    printf("p[0] = %d\n", p[0]);
+
     return 0;
 }

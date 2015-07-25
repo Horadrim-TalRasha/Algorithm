@@ -28,7 +28,7 @@ public:
     virtual T* sort()
     {
         StartQuickSort(0, m_uiDataLength - 1);
-        return NULL;
+        return Sort<T>::m_pUnsortedData;
     }
 
     void SetDataLength(const int& uiDataLength)
