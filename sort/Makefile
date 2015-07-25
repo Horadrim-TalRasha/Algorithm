@@ -1,10 +1,18 @@
+## Data              Author               Content
+## 2015-07-25        lichao              Create Version
+
+CXX := g++
 CXXFLAGS := -g -Wall -c
-BinName = QuickSort
-OBJS = wildcard *.o
+BinName := QuickSort
+SRCS := $(wildcard *.cpp)
+OBJS := $(SRCS:%.cpp=%.o)
 
 %.o : %.cpp
-	g++ -o $@ $(CXXFLAGS) $<
+	$(CXX) -o $@ $(CXXFLAGS) $<
 
-all : $(BinName)
-	g++ -g -o $@ $(OBJS)
+$(BinName) : $(OBJS)
+	$(CXX) -o $@ -g -Wall $(OBJS)
+
+clean::
+	@rm -rf $(OBJS) $(BinName)
 
