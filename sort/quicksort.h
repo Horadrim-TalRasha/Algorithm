@@ -18,11 +18,13 @@ public:
         Sort<T>::m_pMemAlloc = pMemAlloc;
         Sort<T>::m_pUnsortedData = NULL;
     }
+
     virtual ~QuickSort()
     {
         delete Sort<T>::m_pUnsortedData;
         Sort<T>::m_pUnsortedData = NULL;
     }
+
     virtual T* sort()
     {
         return NULL;
