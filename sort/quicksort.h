@@ -50,7 +50,6 @@ public:
 private:
     void StartQuickSort(const int& uiLeft, const int& uiRight)
     {
-        m_uiSortTimes++;
         if(uiLeft < uiRight)
         {
             T t_key = Sort<T>::m_pUnsortedData[uiLeft];
