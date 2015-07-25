@@ -14,5 +14,7 @@ int main(int argc, char** argv)
     int d[] = {3, 4, 8, 5, 26, 12};
     intQuickSort.Alloc(sizeof(d));
     intQuickSort.CopyData(d, sizeof(d));
+    intQuickSort.SetDataLength(sizeof(d) / sizeof(int));
+    intQuickSort.sort();
     return 0;
 }
