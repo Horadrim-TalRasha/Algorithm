@@ -3,6 +3,7 @@ Data              Author               Content
 2015-07-25        lichao              Create Version
 2015-07-26        lichao              When print array, seporate array num by backspace
 2015-07-26        lichao              add heapsort.h
+2015-07-26        lichao              print seproator
  */
 
 #include <string.h>
@@ -28,7 +29,7 @@ int main(int argc, char** argv)
     printf("\n");
     printf("SortTimes = %u\n", intQuickSort.SortTimes());
 
-
+    printf("===========    ============\n");
     HeapSort<int> intHeapSort(&memAlloc);
     intHeapSort.Alloc(sizeof(d));
     intHeapSort.CopyData(d, sizeof(d));

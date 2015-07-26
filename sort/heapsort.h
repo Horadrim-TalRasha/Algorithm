@@ -2,6 +2,7 @@
  Data              Author               Content
  2015-07-26        lichao              Create Version
  2015-07-26        lichao              Implement HeapSort Algorithm
+ 2015-07-26        lichao              Add func HeapSort<T>::PrintMem
   */
 
 #ifndef HEAP_SORT_H
@@ -60,6 +61,7 @@ public:
                 break;
             }
         }
+
     }
 
 private:
@@ -78,6 +80,15 @@ private:
             Sort<T>::m_pUnsortedData[i] = t_temp;
             HeapAdjust(0, i);
         }
+    }
+
+    void PrintMem(const int& nLen) const
+    {
+        for(int i = 0; i < nLen; i++)
+        {
+            printf("d[%d] = %d ", i, Sort<T>::m_pUnsortedData[i]);
+        }
+        printf("\n");
     }
 
     int m_nDataLen;
