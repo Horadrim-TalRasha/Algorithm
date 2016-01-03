@@ -1,6 +1,8 @@
 #include <stdio.h>
 
+#include "myiter.h"
 
+/**
 template <class I>
 struct iterator_traits
 {
@@ -19,6 +21,7 @@ struct iterator_traits<T*>
 {
     typedef T value_type;
 };
+**/
 
 int main(int argc, char** argv)
 {
