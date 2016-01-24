@@ -1,12 +1,7 @@
 #ifndef ALLOCATOR_H
 #define ALLOCATOR_H
 
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-
-#include <iostream>
-#include <new>
+#include "default_alloc.h"
 
 template<int inst>
 class __malloc_alloc_template
