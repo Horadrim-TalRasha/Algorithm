@@ -1,0 +1,15 @@
+# interfaces(5) file used by ifup(8) and ifdown(8)
+auto lo eth0 eth0:100 eth0:200
+iface lo inet loopback
+
+iface eth0:200 inet static
+  address 192.168.1.19
+  netmask 255.255.255.0
+  broadcast 192.168.1.255
+  gateway 192.168.1.1
+
+iface eth0:100 inet static
+  address 192.168.1.20
+  netmask 255.255.255.0
+  broadcast 192.168.1.255
+  gateway 192.168.1.1
