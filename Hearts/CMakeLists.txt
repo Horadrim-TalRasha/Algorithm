@@ -1,5 +1,6 @@
 ##--------------- Revision List -----------------------
 ##   2016-03-20  lichao  create version
+##   2016-03-20  lichao  add sub directory 'game'
 ##-----------------------------------------------------
 
 
@@ -19,6 +20,8 @@ set(CMAKE_C_FLAGS_DEBUG "-O0 -g -Wall -ggdb")
 set(CMAKE_C_FLAGS_RELEASE "-O3 -Wall")
 
 ##set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+
+add_subdirectory(game)
 
 ##  put the src files into variable CORE_SRCS
 AUX_SOURCE_DIRECTORY(core CORE_SRCS)
