@@ -1,3 +1,8 @@
+##--------------- Revision List -----------------------
+##   2016-03-20  lichao  create version
+##-----------------------------------------------------
+
+
 cmake_minimum_required(VERSION 2.6)
 
 project(Hearts C CXX)
