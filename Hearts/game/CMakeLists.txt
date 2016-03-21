@@ -1,4 +1,6 @@
-set(CMAKE_VERBOSE_MAKEFILE ON)
+##--------------- Revision List -----------------------
+##   2016-03-21  lichao  create version
+##-----------------------------------------------------
 
 set(CMAKE_C_FLAGS_DEBUG "-O0 -g -Wall -ggdb")
 
