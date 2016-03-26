@@ -1,6 +1,7 @@
 ##--------------- Revision List -----------------------
 ##   2016-03-20  lichao  create version
 ##   2016-03-21  lichao  add -d option to display build arguments
+##   2016-03-26  lichao  add usage in script
 ##-----------------------------------------------------
 
 
@@ -13,20 +14,20 @@ SOURCE_DIR=`pwd`
 BUILD_DIR=${BUILD_DIR:-../Hearts_build}
 BUILD_TYPE=${BUILD_TYPE:-debug}
 BUILD_OPTIONS=""
-#  && cmake \
-#           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-#           -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
-#           -DCMAKE_BUILD_NO_EXAMPLES=$BUILD_NO_EXAMPLES \
-#           $SOURCE_DIR \
-#  && make $*
 
-# Use the following command to run all the unit tests
-# at the dir $BUILD_DIR/$BUILD_TYPE :
-# CTEST_OUTPUT_ON_FAILURE=TRUE make test
 
+function usage ()
+{
+    set +x
+    echo "USAGE: build.sh -r [ build_directory] -t [debug | release] -d"
+    echo "                -r specify building directory which will created at the parent directory"
+    echo "                -d display compiling arguments"
+    echo "                -t specify build type [release and build]"
+    echo "                -h show usage"
+}
 
 # check arguments
-while getopts "t:r:d" arg
+while getopts "t:r:dh" arg
 do
     case $arg in
         t) case $OPTARG in
@@ -35,6 +36,7 @@ do
            esac;;
         r) BUILD_DIR="../$OPTARG";;
         d) BUILD_OPTIONS="-DDISPLAY_BUILD_ARGS=true";;
+        h) usage; exit 0;;
         *) echo "unkown argument"; exit 1
     esac
 done

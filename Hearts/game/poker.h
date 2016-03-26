@@ -1,9 +1,11 @@
 //--------------- Revision List -----------------------
 //   2016-03-20  lichao  create version
+//   2016-03-26  lichao  add interface get the suite of poker
 //-----------------------------------------------------
 
 enum Suite
 {
+    ERR_SUITE = -1,
     HEART_SUITE = 1,
     DIAMOND_SUITE = 2,
     SPADE_SUITE = 3,
@@ -12,6 +14,7 @@ enum Suite
 
 enum Rank
 {
+    ERR_RANK = -1,
     ACE = 1,
     TWO = 2,
     THREE = 3,
@@ -34,3 +37,6 @@ const unsigned short szClubPokerCards[] = {0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0
 
 const unsigned short usBlackJoker = 0x0f;
 const unsigned short usRedJoker = 0xf0;
+
+const enum Suite
+getPokerSuite(const unsigned short usPoker);
