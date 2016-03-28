@@ -2,6 +2,7 @@
 //   2016-03-20  lichao  create version
 //   2016-03-26  lichao  initialize global variable
 //                       inplement func 'getPokerSuite'
+//   2016-03-28  lichao  implement func 'getPokerRank'
 //-----------------------------------------------------
 
 #include "poker.h"
@@ -39,3 +40,18 @@ getPokerSuite(const unsigned short usPoker)
 
     return ERR_SUITE;
 }
+
+const enum Rank
+getPokerRank(const unsigned short usPoker)
+{
+    char nRank = *(char*)((&usPoker) + sizeof(char));
+    if(nRank <= (char)KING && nRank >= (char)ACE)
+    {
+        return (enum Rank)nRank;
+    }
+
+    return ERR_RANK;
+}
+
+
+

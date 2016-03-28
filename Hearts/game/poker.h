@@ -1,6 +1,7 @@
 //--------------- Revision List -----------------------
 //   2016-03-20  lichao  create version
 //   2016-03-26  lichao  add interface get the suite of poker
+//   2016-03-28  lichao  add interface getPokerRank
 //-----------------------------------------------------
 
 #ifndef POKER_H
@@ -47,5 +48,8 @@ extern const unsigned short usRedJoker;
 
 const enum Suite
 getPokerSuite(const unsigned short usPoker);
+
+const enum Rank
+getPokerRank(const unsigned short usPoker);
 
 #endif
