@@ -5,6 +5,7 @@
 ##                       build arguments
 ##   2016-03-26  lichao  delete unwanted code and add new
 ##                       subdirectory
+##   2016-03-28  lichao  add subdirectory 'ut'
 ##-----------------------------------------------------
 
 
@@ -30,3 +31,5 @@ include_directories(${PROJECT_SOURCE_DIR})
 add_subdirectory(game)
 
 add_subdirectory(core)
+
+add_subdirectory(ut)
