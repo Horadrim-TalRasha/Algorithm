@@ -5,6 +5,7 @@
 //   2016-04-01  lichao  add max_suite in enum Suite &
 //                       add max_rank in enum Rank
 //                       declare hand struct & InitHand
+//   2016-04-02  lichao  modify member name in struct hand
 //-----------------------------------------------------
 
 #ifndef POKER_H
@@ -43,8 +44,8 @@ enum Rank
 
 typedef struct hand
 {
-  unsigned short m_szHand[MAX_RANK - 1];
-  unsigned short m_usHandCount;
+  unsigned short m_szPokers[MAX_RANK - 1];
+  unsigned short m_usPokerCount;
 } hand; 
 
 extern const unsigned short szHeartPokerCards[];
