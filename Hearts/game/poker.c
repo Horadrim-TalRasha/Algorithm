@@ -3,6 +3,7 @@
 //   2016-03-26  lichao  initialize global variable
 //                       inplement func 'getPokerSuite'
 //   2016-03-28  lichao  implement func 'getPokerRank'
+//   2016-04-01  lichao  implement InitHand
 //-----------------------------------------------------
 
 #include "poker.h"
@@ -53,5 +54,9 @@ getPokerRank(const unsigned short usPoker)
     return ERR_RANK;
 }
 
-
+void
+InitHand(hand* pHand)
+{
+   memset(pHand, 0, sizeof(hand)); 
+}
 
