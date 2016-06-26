@@ -1,0 +1,12 @@
+看看-remsh的说明恰好是我们需要的:
+
+If you want an Erlang node to have a remote job active from the start (rather than the default local job), you start Erlang with the -remsh flag. Example: erl -sname this_node -remsh other_node@other_host
+
+动手试一下:
+erl -setcookie abc -name node_3@192.168.1.123 -remsh node_1@192.168.1.123 %%这样就直接进入了node_1节点
+注意:直接进入到了node_1,执行完操作了想要退出怎么办? 你要是在这里执行一下q(). node_1这个节点就直接死掉了;
+正确的方法还是Ctrl+G进入JCL模式然后执行q命令退出;使用ps aux|grep node查看一下进程是不是还在
+
+ejabberd网站上提到了这个方法 
+[1] Attach an Erlang Shell to an Already Running ejabberd Process http://www.ejabberd.im/tricks
+[2] Interconnecting Erlang Nodes http://www.ejabberd.im/interconnect-erl-nodes

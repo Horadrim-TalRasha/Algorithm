@@ -1,0 +1,198 @@
+1、all
+-- 环境描述
+(root@localhost) [sakila]> show variables like 'version';
++---------------+--------+
+| Variable_name | Value  |
++---------------+--------+
+| version       | 5.6.26 |
++---------------+--------+
+
+MySQL采取全表遍历的方式来返回数据行，等同于Oracle的full table scan
+(root@localhost) [sakila]> explain select count(description) from film;
++----+-------------+-------+------+---------------+------+---------+------+------+-------+
+| id | select_type | table | type | possible_keys | key  | key_len | ref  | rows | Extra |
++----+-------------+-------+------+---------------+------+---------+------+------+-------+
+|  1 | SIMPLE      | film  | ALL  | NULL          | NULL | NULL    | NULL | 1000 | NULL  |
++----+-------------+-------+------+---------------+------+---------+------+------+-------+
+
+2、index
+MySQL采取索引全扫描的方式来返回数据行，等同于Oracle的full index scan
+(root@localhost) [sakila]> explain select title from film \G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: film
+         type: index
+possible_keys: NULL
+          key: idx_title
+      key_len: 767
+          ref: NULL
+         rows: 1000
+        Extra: Using index
+1 row in set (0.00 sec)
+
+3、  range
+索引范围扫描，对索引的扫描开始于某一点，返回匹配值域的行，常见于between、<、>等的查询
+等同于Oracle的index range scan
+(root@localhost) [sakila]> explain select * from payment where customer_id>300 and customer_id<400\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: payment
+         type: range
+possible_keys: idx_fk_customer_id
+          key: idx_fk_customer_id
+      key_len: 2
+          ref: NULL
+         rows: 2637
+        Extra: Using where
+1 row in set (0.00 sec)
+
+(root@localhost) [sakila]> explain select * from payment where customer_id in (200,300,400)\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: payment
+         type: range
+possible_keys: idx_fk_customer_id
+          key: idx_fk_customer_id
+      key_len: 2
+          ref: NULL
+         rows: 86
+        Extra: Using index condition
+1 row in set (0.00 sec)
+
+4、ref
+非唯一性索引扫描或者，返回匹配某个单独值的所有行。常见于使用非唯一索引即唯一索引的非唯一前缀进行的查找
+(root@localhost) [sakila]> explain select * from payment where customer_id=305\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: payment
+         type: ref
+possible_keys: idx_fk_customer_id
+          key: idx_fk_customer_id
+      key_len: 2
+          ref: const
+         rows: 25
+        Extra: 
+1 row in set (0.00 sec)
+
+idx_fk_customer_id为表payment上的外键索引，且存在多个不不唯一的值，如下查询
+(root@localhost) [sakila]> select customer_id,count(*) from payment group by customer_id
+    -> limit 2;
++-------------+----------+
+| customer_id | count(*) |
++-------------+----------+
+|           1 |       32 |
+|           2 |       27 |
++-------------+----------+
+
+-- 下面是非唯一前缀索引使用ref的示例
+(root@localhost) [sakila]> create index idx_fisrt_last_name on customer(first_name,last_name);
+Query OK, 599 rows affected (0.09 sec)
+Records: 599  Duplicates: 0  Warnings: 0
+
+(root@localhost) [sakila]> select first_name,count(*) from customer group by first_name 
+    -> having count(*)>1 limit 2;
++------------+----------+
+| first_name | count(*) |
++------------+----------+
+| JAMIE      |        2 |
+| JESSIE     |        2 |
++------------+----------+
+2 rows in set (0.00 sec)
+
+(root@localhost) [sakila]> explain select first_name from customer where first_name='JESSIE'\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: customer
+         type: ref
+possible_keys: idx_fisrt_last_name
+          key: idx_fisrt_last_name
+      key_len: 137
+          ref: const
+         rows: 2
+        Extra: Using where; Using index
+1 row in set (0.00 sec)
+
+(root@localhost) [sakila]> alter table customer drop index idx_fisrt_last_name;
+Query OK, 599 rows affected (0.03 sec)
+Records: 599  Duplicates: 0  Warnings: 0
+
+--下面演示出现在join是ref的示例
+(root@localhost) [sakila]> explain select b.*,a.* from payment a inner join
+    -> customer b on a.customer_id=b.customer_id\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: b
+         type: ALL
+possible_keys: PRIMARY
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 599
+        Extra: NULL
+*************************** 2. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: a
+         type: ref
+possible_keys: idx_fk_customer_id
+          key: idx_fk_customer_id
+      key_len: 2
+          ref: sakila.b.customer_id
+         rows: 13
+        Extra: NULL
+2 rows in set (0.01 sec)
+
+5、eq_ref
+类似于ref，其差别在于使用的索引为唯一索引，对于每个索引键值，表中只有一条记录与之匹配。
+多见于主键扫描或者索引唯一扫描。
+(root@localhost) [sakila]> explain select * from film a join film_text b 
+    -> on a.film_id=b.film_id;
++----+-------------+-------+--------+---------------+---------+---------+------------------+------+-------------+
+| id | select_type | table | type   | possible_keys | key     | key_len | ref              | rows | Extra       |
++----+-------------+-------+--------+---------------+---------+---------+------------------+------+-------------+
+|  1 | SIMPLE      | b     | ALL    | PRIMARY       | NULL    | NULL    | NULL             | 1000 | NULL        |
+|  1 | SIMPLE      | a     | eq_ref | PRIMARY       | PRIMARY | 2       | sakila.b.film_id |    1 | Using where |
++----+-------------+-------+--------+---------------+---------+---------+------------------+------+-------------+
+
+
+(root@localhost) [sakila]> explain select title from film where film_id=5;
++----+-------------+-------+-------+---------------+---------+---------+-------+------+-------+
+| id | select_type | table | type  | possible_keys | key     | key_len | ref   | rows | Extra |
++----+-------------+-------+-------+---------------+---------+---------+-------+------+-------+
+|  1 | SIMPLE      | film  | const | PRIMARY       | PRIMARY | 2       | const |    1 | NULL  |
++----+-------------+-------+-------+---------------+---------+---------+-------+------+-------+
+
+6、const、system：
+当MySQL对查询某部分进行优化，这个匹配的行的其他列值可以转换为一个常量来处理。
+如将主键或者唯一索引置于where列表中，MySQL就能将该查询转换为一个常量
+(root@localhost) [sakila]> create table t1(id int,ename varchar(20) unique);
+Query OK, 0 rows affected (0.05 sec)
+
+(root@localhost) [sakila]> insert into t1 values(1,'robin'),(2,'jack'),(3,'henry');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+(root@localhost) [sakila]> explain select * from (select * from t1 where ename='robin')x;
++----+-------------+------------+--------+---------------+-------+---------+-------+------+-------+
+| id | select_type | table      | type   | possible_keys | key   | key_len | ref   | rows | Extra |
++----+-------------+------------+--------+---------------+-------+---------+-------+------+-------+
+|  1 | PRIMARY     | <derived2> | system | NULL          | NULL  | NULL    | NULL  |    1 | NULL  |
+|  2 | DERIVED     | t1         | const  | ename         | ename | 23      | const |    1 | NULL  |
++----+-------------+------------+--------+---------------+-------+---------+-------+------+-------+
+2 rows in set (0.00 sec)
+
+7、type=NULL
+MySQL不用访问表或者索引就可以直接得到结果
+(root@localhost) [sakila]> explain select sysdate();
++----+-------------+-------+------+---------------+------+---------+------+------+----------------+
+| id | select_type | table | type | possible_keys | key  | key_len | ref  | rows | Extra          |
++----+-------------+-------+------+---------------+------+---------+------+------+----------------+
+|  1 | SIMPLE      | NULL  | NULL | NULL          | NULL | NULL    | NULL | NULL | No tables used |
++----+-------------+-------+------+---------------+------+---------+------+------+----------------+
+1 row in set (0.00 sec)
