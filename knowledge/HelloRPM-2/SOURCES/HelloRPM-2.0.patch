@@ -1,0 +1,10 @@
+diff -uNr HelloRPM/SOURCES/HelloRPM-1.12/main.c HelloRPM.bak/SOURCES/HelloRPM-1.12/main.c
+--- HelloRPM/SOURCES/HelloRPM-1.12/main.c	2016-07-06 18:39:54.000000000 +0800
++++ HelloRPM.bak/SOURCES/HelloRPM-1.12/main.c	2016-07-07 14:25:26.953490778 +0800
+@@ -3,5 +3,6 @@
+ int main(int argc, char** argv)
+ {
+     printf("Hello RPM\n");
++    printf("Hello RPM 2\n");
+     return 0;
+ }
