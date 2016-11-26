@@ -1,2 +1,10 @@
+some tips:
+1. start redis server 
+redis-server <redis-config-file>
+2. connect redis server by client
+redis-cli -h <redis-host> -p <redis-port>
+
+
+knowledge point:
 1 master-slave architecture (get)
 2 dump to disk (next)
