@@ -1,0 +1,22 @@
+core.java:4: error: package org.apache.hadoop.conf does not exist
+import org.apache.hadoop.conf.Configuration;
+                             ^
+Score.java:5: error: package org.apache.hadoop.fs does not exist
+import org.apache.hadoop.fs.Path;
+                           ^
+Score.java:6: error: package org.apache.hadoop.io does not exist
+import org.apache.hadoop.io.IntWritable;
+                           ^
+Score.java:7: error: package org.apache.hadoop.io does not exist
+import org.apache.hadoop.io.LongWritable;
+                           ^
+Score.java:8: error: package org.apache.hadoop.io does not exist
+import org.apache.hadoop.io.Text;
+
+
+to solve the below compiling error.
+please  try modifying CLASSPATH
+
+COMPILE AND PACKAGE
+javac AverStore.java
+jar -cvf AverStore.jar *.class
