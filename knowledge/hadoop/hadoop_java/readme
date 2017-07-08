@@ -20,3 +20,9 @@ please  try modifying CLASSPATH
 COMPILE AND PACKAGE
 javac AverStore.java
 jar -cvf AverStore.jar *.class
+
+
+TO APPLY JAR INTO HADOOP
+hadoop dfs -mkdir -p /user/hadoop
+hadoop dfs -put input/* input
+hadoop jar share/hadoop/mapreduce/AverScore.jar AverScore input/score output
