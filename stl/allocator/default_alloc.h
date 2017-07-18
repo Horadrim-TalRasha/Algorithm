@@ -98,7 +98,7 @@ private:
             {
                 obj * volatile * my_free_list = free_list + FREELIST_INDEX(bytes_left);
                 ((obj*)start_free)->free_list_link = *my_free_list;
-                my_free_list = (obj*)start_free;
+                *my_free_list = (obj*)start_free;
             }            
 
             start_free = (char*)malloc(bytes_to_get);
@@ -154,7 +154,7 @@ public:
             return r;
         }
 
-        my_free_list = result->free_list_link;
+        *my_free_list = result->free_list_link;
         return result;
     }
 

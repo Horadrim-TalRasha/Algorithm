@@ -1,7 +1,6 @@
 #ifndef ALLOCATOR_H
 #define ALLOCATOR_H
 
-#include "default_alloc.h"
 
 template<int inst>
 class __malloc_alloc_template
@@ -12,7 +11,7 @@ private:
 
     static void *oom_realloc(void*, const size_t &);
 
-    static void *(__malloc_alloc_oom_handler)();
+    static void (*__malloc_alloc_oom_handler)();
 
 public:
     static void* allocate(const size_t & n)
@@ -51,7 +50,7 @@ public:
 };
 
 template<int inst>
-void *(__malloc_alloc_template<inst>::__malloc_alloc_oom_handler)() = 0;
+void (*__malloc_alloc_template<inst>::__malloc_alloc_oom_handler)() = 0;
 
 template<int inst>
 void * __malloc_alloc_template<inst>::oom_malloc(const size_t & n)
