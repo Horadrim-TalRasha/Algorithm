@@ -21,7 +21,7 @@ class __default_alloc_template
 private:
     static size_t ROUND_UP(const size_t & bytes)
     {
-        return ((bytes + __ALIGN - 1) & -(__ALIGN - 1));
+        return ((bytes + __ALIGN - 1) & ~(__ALIGN - 1));
     }
 
     static size_t FREELIST_INDEX(const size_t & bytes)
