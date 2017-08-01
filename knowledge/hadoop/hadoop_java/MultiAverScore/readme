@@ -1,0 +1,30 @@
+core.java:4: error: package org.apache.hadoop.conf does not exist
+import org.apache.hadoop.conf.Configuration;
+                             ^
+Score.java:5: error: package org.apache.hadoop.fs does not exist
+import org.apache.hadoop.fs.Path;
+                           ^
+Score.java:6: error: package org.apache.hadoop.io does not exist
+import org.apache.hadoop.io.IntWritable;
+                           ^
+Score.java:7: error: package org.apache.hadoop.io does not exist
+import org.apache.hadoop.io.LongWritable;
+                           ^
+Score.java:8: error: package org.apache.hadoop.io does not exist
+import org.apache.hadoop.io.Text;
+
+
+to solve the below compiling error.
+please  try modifying CLASSPATH like following.
+/usr/local/hadoop/etc/hadoop:/usr/local/hadoop/share/hadoop/common/lib/*:/usr/local/hadoop/share/hadoop/common/*:/usr/local/hadoop/share/hadoop/hdfs:/usr/local/hadoop/share/hadoop/hdfs/lib/*:/usr/local/hadoop/share/hadoop/hdfs/*:/usr/local/hadoop/share/hadoop/yarn/lib/*:/usr/local/hadoop/share/hadoop/yarn/*:/usr/local/hadoop/share/hadoop/mapreduce/lib/*:/usr/local/hadoop/share/hadoop/mapreduce/*:/usr/local/hadoop/contrib/capacity-scheduler/*.jar:/usr/local/hadoop/etc/hadoop:/usr/local/hadoop/share/hadoop/common/lib/*:/usr/local/hadoop/share/hadoop/common/*:/usr/local/hadoop/share/hadoop/hdfs:/usr/local/hadoop/share/hadoop/hdfs/lib/*:/usr/local/hadoop/share/hadoop/hdfs/*:/usr/local/hadoop/share/hadoop/yarn/lib/*:/usr/local/hadoop/share/hadoop/yarn/*:/usr/local/hadoop/share/hadoop/mapreduce/lib/*:/usr/local/hadoop/share/hadoop/mapreduce/*:/usr/local/hadoop/contrib/capacity-scheduler/*.jar:
+
+
+COMPILE AND PACKAGE
+javac AverStore.java
+jar -cvf AverStore.jar *.class
+
+
+TO APPLY JAR INTO HADOOP
+hadoop dfs -mkdir -p /user/hadoop
+hadoop dfs -put input/* input
+hadoop jar share/hadoop/mapreduce/AverScore.jar AverScore input/score output
