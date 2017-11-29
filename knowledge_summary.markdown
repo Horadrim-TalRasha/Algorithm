@@ -37,9 +37,9 @@ Computer Concepts
 
 Thread and Process
 ------------------
-Process contains the time loading the context, cpu executing, saving the context
+Process contains the time loading the context, cpu executing and saving the context.
 Loading and saving context is heavy so the switch between processes takes time.
 Thread shares the context and stack with their parent process so the switch between
 threads does not take time.
 
-Reference: [Difference about thread and process](https://www.zhihu.com/question/25532384)
+Reference: [Difference about thread and process from zhihu](https://www.zhihu.com/question/25532384)
