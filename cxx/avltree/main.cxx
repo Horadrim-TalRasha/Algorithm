@@ -12,6 +12,13 @@ private:
         AVLTreeNode();
         AVLTreeNode(const int & nodeValue);
         ~AVLTreeNode();
+	    bool isLeafNode();
+		bool hasLeftChild();
+		bool hasRightChild();
+		bool hasChild();
+		AVLTreeNode * rightChild();
+		AVLTreeNode * leftChild();
+        const int & nodeValue();
 
     private:
         int m_nodeValue;
@@ -29,7 +36,7 @@ public:
 private:
     int __height(const AVLTreeNode * node);
     int __diff(const AVLTreeNode * node);
-    AVLTreeNode * __searchInsertPointer(const int & nodeValue);
+    AVLTreeNode * __searchBalancePointer(const int & nodeValue);
 
     AVLTreeNode * m_rootNode;
 };
@@ -58,17 +65,33 @@ AVLTree::Insert(const int & nodeValue)
     }
     else
     {
-
+        AVLTree::AVLTreeNode * insertParentNode = __searchBalancePointer(nodeValue);
+        
    
     }
 }
 
 AVLTree::AVLTreeNode *
-AVLTree::__searchInsertPointer(const int & nodeValue)
+AVLTree::__searchBalancePointer(const int & nodeValue)
 {
-
-
-
+	if(m_rootNode->isLeafNode())
+    {
+        return m_rootNode;
+    }
+    AVLTree::AVLTreeNode * startNode = m_rootNode;
+	while(startNode != NULL)
+    {
+        AVLTree::AVLTreeNode * startLeftNode = startNode->leftChild();
+    	AVLTree::AVLTreeNode * startRightNode = startNode->rightChild();
+    	if(startLeftNode == NULL || startRightNode == NULL)
+        {
+            return startNode;
+        }
+        else
+		{
+            
+		}
+    }
 }
 
 AVLTree::AVLTreeNode::AVLTreeNode() :
@@ -95,6 +118,47 @@ AVLTree::AVLTreeNode::~AVLTreeNode()
 
 }
 
+bool
+AVLTree::AVLTreeNode::isLeafNode()
+{
+    return (m_leftNode == NULL) && (m_rightNode == NULL);
+}
+
+bool
+AVLTree::AVLTreeNode::hasLeftChild()
+{
+    return (m_leftNode != NULL) && (m_rightNode == NULL);
+}
+
+bool
+AVLTree::AVLTreeNode::hasRightChild()
+{
+    return (m_leftNode == NULL) && (m_rightNode != NULL);
+}
+
+bool
+AVLTree::AVLTreeNode::hasRightChild()
+{
+    return (m_leftNode != NULL) || (m_rightNode != NULL);
+}
+
+AVLTree::AVLTreeNode *
+AVLTree::AVLTreeNode::rightChild()
+{
+    return m_rightNode;
+}
+
+AVLTree::AVLTreeNode *
+AVLTree::AVLTreeNode::leftChild()
+{
+    return m_leftNode;
+}
+
+const int &
+AVLTree::AVLTreeNode::nodeValue()
+{
+    return m_nodeValue;
+}
 
 int main(int argc, char** argv)
 {
