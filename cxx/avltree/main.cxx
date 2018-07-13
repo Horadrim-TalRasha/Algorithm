@@ -79,19 +79,26 @@ AVLTree::__searchBalancePointer(const int & nodeValue)
         return m_rootNode;
     }
     AVLTree::AVLTreeNode * startNode = m_rootNode;
-	while(startNode != NULL)
+	AVLTree::AVLTreeNode * startLeftNode = startNode->leftChild();
+    AVLTree::AVLTreeNode * startRightNode = startNode->rightChild();
+	while(startLeftNode != NULL && startRightNode != NULL &&
+		startLeftNode->hasChild() && startRightNode->hasChild())
     {
-        AVLTree::AVLTreeNode * startLeftNode = startNode->leftChild();
-    	AVLTree::AVLTreeNode * startRightNode = startNode->rightChild();
-    	if(startLeftNode == NULL || startRightNode == NULL)
-        {
-            return startNode;
-        }
-        else
+        if(nodeValue >= startNode->nodeValue())
 		{
-            
+            startNode = startRightNode;
+			startLeftNode = startNode->leftChild();
+			startRightNode = startNode->rightChild();
+		}
+		else if(nodeValue < startNode->nodeValue())
+		{
+            startNode = startLeftNode;
+			startLeftNode = startNode->leftChild();
+			startRightNode = startNode->rightChild();
 		}
     }
+
+	return startNode;
 }
 
 AVLTree::AVLTreeNode::AVLTreeNode() :
@@ -137,7 +144,7 @@ AVLTree::AVLTreeNode::hasRightChild()
 }
 
 bool
-AVLTree::AVLTreeNode::hasRightChild()
+AVLTree::AVLTreeNode::hasChild()
 {
     return (m_leftNode != NULL) || (m_rightNode != NULL);
 }
