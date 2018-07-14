@@ -16,6 +16,8 @@ private:
 		bool hasLeftChild();
 		bool hasRightChild();
 		bool hasChild();
+        void setRightChild(AVLTreeNode * node);
+        void setLeftChild(AVLTreeNode * node);
 		AVLTreeNode * rightChild();
 		AVLTreeNode * leftChild();
         const int & nodeValue();
@@ -32,11 +34,16 @@ public:
     ~AVLTree();
 
     AVLTreeNode * Insert(const int & nodeValue);
+    void InorderTraversal();
+    void PreOrderTraversal();
 
 private:
     int __height(const AVLTreeNode * node);
     int __diff(const AVLTreeNode * node);
+    void __doInsertNode(AVLTreeNode * node, const int & nodeValue);
     AVLTreeNode * __searchBalancePointer(const int & nodeValue);
+    void __InorderTraversal(AVLTreeNode * node);
+    void __PreOrderTraversal(AVLTreeNode * node);
 
     AVLTreeNode * m_rootNode;
 };
@@ -65,9 +72,85 @@ AVLTree::Insert(const int & nodeValue)
     }
     else
     {
-        AVLTree::AVLTreeNode * insertParentNode = __searchBalancePointer(nodeValue);
-        
-   
+        AVLTree::AVLTreeNode * balanceNode = __searchBalancePointer(nodeValue);
+        __doInsertNode(balanceNode, nodeValue);
+        return balanceNode;   
+    }
+}
+
+void
+AVLTree::InorderTraversal()
+{
+    __InorderTraversal(m_rootNode);
+}
+
+void
+AVLTree::PreOrderTraversal()
+{
+    __PreOrderTraversal(m_rootNode);
+}
+
+void
+AVLTree::__InorderTraversal(AVLTree::AVLTreeNode * node)
+{
+    if(node == NULL)
+    {
+        return;
+    }
+
+    __InorderTraversal(node->leftChild());
+    printf("%d\n", node->nodeValue());
+    __InorderTraversal(node->rightChild());
+}
+
+void
+AVLTree::__PreOrderTraversal(AVLTree::AVLTreeNode * node)
+{
+    if(node == NULL)
+    {
+        return;
+    }
+
+    printf("%d\n", node->nodeValue());
+    __InorderTraversal(node->leftChild());
+    __InorderTraversal(node->rightChild());
+}
+
+void
+AVLTree::__doInsertNode(AVLTree::AVLTreeNode * balanceNode, const int & nodeValue)
+{
+    AVLTree::AVLTreeNode * startNode = balanceNode;
+    while(startNode != NULL)
+    {
+        if(nodeValue >= startNode->nodeValue())
+        {
+            if(startNode->rightChild() != NULL)
+            {
+                startNode = startNode->rightChild();
+                continue;
+            }
+            else
+            {
+                AVLTree::AVLTreeNode * newNode = new AVLTree::AVLTreeNode(nodeValue);
+                startNode->setRightChild(newNode);
+                return;
+            }
+        }
+        else
+        {
+            if(startNode->leftChild() != NULL)
+            {
+                startNode = startNode->leftChild();
+                continue;
+            }
+            else
+            {
+                AVLTree::AVLTreeNode * newNode = new AVLTree::AVLTreeNode(nodeValue);
+                startNode->setLeftChild(newNode);
+                return;
+            }
+        }
+
     }
 }
 
@@ -78,6 +161,7 @@ AVLTree::__searchBalancePointer(const int & nodeValue)
     {
         return m_rootNode;
     }
+
     AVLTree::AVLTreeNode * startNode = m_rootNode;
 	AVLTree::AVLTreeNode * startLeftNode = startNode->leftChild();
     AVLTree::AVLTreeNode * startRightNode = startNode->rightChild();
@@ -149,6 +233,18 @@ AVLTree::AVLTreeNode::hasChild()
     return (m_leftNode != NULL) || (m_rightNode != NULL);
 }
 
+void
+AVLTree::AVLTreeNode::setRightChild(AVLTree::AVLTreeNode * node)
+{
+    m_rightNode = node;
+}
+
+void
+AVLTree::AVLTreeNode::setLeftChild(AVLTree::AVLTreeNode * node)
+{
+    m_leftNode = node;
+}
+
 AVLTree::AVLTreeNode *
 AVLTree::AVLTreeNode::rightChild()
 {
@@ -169,6 +265,12 @@ AVLTree::AVLTreeNode::nodeValue()
 
 int main(int argc, char** argv)
 {
+    AVLTree testTree;
 
+    testTree.Insert(1);
+    testTree.Insert(2);
+    testTree.Insert(3);
+    testTree.PreOrderTraversal();
+    testTree.InorderTraversal();
     return 0;
 }
