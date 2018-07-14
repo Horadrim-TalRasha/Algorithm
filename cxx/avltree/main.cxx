@@ -112,8 +112,8 @@ AVLTree::__PreOrderTraversal(AVLTree::AVLTreeNode * node)
     }
 
     printf("%d\n", node->nodeValue());
-    __InorderTraversal(node->leftChild());
-    __InorderTraversal(node->rightChild());
+    __PreOrderTraversal(node->leftChild());
+    __PreOrderTraversal(node->rightChild());
 }
 
 void
@@ -267,10 +267,15 @@ int main(int argc, char** argv)
 {
     AVLTree testTree;
 
-    testTree.Insert(1);
     testTree.Insert(2);
+    testTree.Insert(1);
     testTree.Insert(3);
+    testTree.Insert(6);
+    testTree.Insert(5);
+    printf("Pre order:\n");
     testTree.PreOrderTraversal();
+
+    printf("In order:\n");
     testTree.InorderTraversal();
     return 0;
 }
