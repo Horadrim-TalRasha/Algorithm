@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-
+#include <iostream>
 
 
 class AVLTree
@@ -38,12 +38,16 @@ public:
     void PreOrderTraversal();
 
 private:
-    int __height(const AVLTreeNode * node);
-    int __diff(const AVLTreeNode * node);
+    int __height(AVLTreeNode * node);
+    int __diff(AVLTreeNode * node);
     void __doInsertNode(AVLTreeNode * node, const int & nodeValue);
     AVLTreeNode * __searchBalancePointer(const int & nodeValue);
     void __InorderTraversal(AVLTreeNode * node);
     void __PreOrderTraversal(AVLTreeNode * node);
+    void __Balance(AVLTreeNode * node);
+    AVLTreeNode * __RL_rotate(AVLTreeNode * node);
+    AVLTreeNode * __LL_rotate(AVLTreeNode * node);
+    AVLTreeNode * __RR_rotate(AVLTreeNode * node);
 
     AVLTreeNode * m_rootNode;
 };
@@ -74,6 +78,7 @@ AVLTree::Insert(const int & nodeValue)
     {
         AVLTree::AVLTreeNode * balanceNode = __searchBalancePointer(nodeValue);
         __doInsertNode(balanceNode, nodeValue);
+        __Balance(balanceNode);
         return balanceNode;   
     }
 }
@@ -114,6 +119,71 @@ AVLTree::__PreOrderTraversal(AVLTree::AVLTreeNode * node)
     printf("%d\n", node->nodeValue());
     __PreOrderTraversal(node->leftChild());
     __PreOrderTraversal(node->rightChild());
+}
+
+void
+AVLTree::__Balance(AVLTree::AVLTreeNode * node)
+{
+    int balanceFactor = __diff(node);
+
+    if(balanceFactor > 1)
+    {
+        printf("balaceFactor of node: %d is %d\n", node->nodeValue(), balanceFactor);
+    }
+    else if(balanceFactor < -1)
+    {
+        printf("balaceFactor of node: %d is %d\n", node->nodeValue(), balanceFactor);
+        if(__diff(node->rightChild()) > 0)
+        {
+            printf("right left\n");
+            node = __RL_rotate(node);
+        }
+        else
+        {
+            printf("right right\n");
+        }
+    }
+}
+
+AVLTree::AVLTreeNode *
+AVLTree::__RL_rotate(AVLTree::AVLTreeNode * node)
+{
+    node->setRightChild(__LL_rotate(node->rightChild()));
+
+    return __RR_rotate(node);
+}
+
+AVLTree::AVLTreeNode *
+AVLTree::__LL_rotate(AVLTree::AVLTreeNode * node)
+{
+    AVLTree::AVLTreeNode * tmp = node->leftChild();
+    node->setLeftChild(tmp->rightChild());
+    tmp->setRightChild(node);
+    return tmp;
+}
+
+AVLTree::AVLTreeNode *
+AVLTree::__RR_rotate(AVLTree::AVLTreeNode * node)
+{
+    AVLTree::AVLTreeNode * tmp = node->rightChild();
+    node->setRightChild(tmp->leftChild());
+    tmp->setLeftChild(node);
+    return tmp;
+}
+
+int
+AVLTree::__diff(AVLTree::AVLTreeNode * node)
+{
+    return __height(node->leftChild()) - __height(node->rightChild());
+}
+
+int
+AVLTree::__height(AVLTree::AVLTreeNode * node)
+{
+    if(node == NULL)
+        return 0;
+
+    return 1 + std::max(__height(node->leftChild()), __height(node->rightChild()));
 }
 
 void
@@ -166,7 +236,7 @@ AVLTree::__searchBalancePointer(const int & nodeValue)
 	AVLTree::AVLTreeNode * startLeftNode = startNode->leftChild();
     AVLTree::AVLTreeNode * startRightNode = startNode->rightChild();
 	while(startLeftNode != NULL && startRightNode != NULL &&
-		startLeftNode->hasChild() && startRightNode->hasChild())
+          startLeftNode->hasChild() && startRightNode->hasChild())
     {
         if(nodeValue >= startNode->nodeValue())
 		{
@@ -272,6 +342,8 @@ int main(int argc, char** argv)
     testTree.Insert(3);
     testTree.Insert(6);
     testTree.Insert(5);
+//    testTree.Insert(8);
+//    testTree.Insert(18);
     printf("Pre order:\n");
     testTree.PreOrderTraversal();
 
