@@ -7,3 +7,9 @@ https://blog.csdn.net/column/details/16956.html
 
 multi-thread:
 https://blog.csdn.net/login_sonata/article/details/78151114
+
+
+compile and run java
+jar cvf collection.jar *.class(compiled class files)
+java -cp collection.jar collection(main class)
+
