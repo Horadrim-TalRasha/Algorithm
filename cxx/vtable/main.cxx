@@ -41,7 +41,9 @@ int main(int argc, char** argv)
 	Func fun = (Func)(*(int *)*(int *)(&d));
 	fun(15);
 
-//	Func fun2 = (Func)(*(int *)*(int *)(&d) + 1);
-//	fun2(17);    // segment fault
+	Func fun2 = (Func)*((int *)*((int *)(&d)) + 1);
+	fun2(17);    // segment fault looks like the memory layout is not like VC++.
+
+	// a reference here: http://www.cnblogs.com/QG-whz/p/4909359.html
     return 0;
 }
