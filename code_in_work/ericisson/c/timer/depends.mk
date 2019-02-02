@@ -1,1 +1,1 @@
-DEPEND_PROS = utils
+DEPEND_PROS = concur

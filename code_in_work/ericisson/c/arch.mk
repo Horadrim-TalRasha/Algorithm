@@ -1,1 +1,1 @@
-SUBDIRS = timer
+SUBDIRS = concur util timer
