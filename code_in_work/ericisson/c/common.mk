@@ -1,3 +1,4 @@
+CURRENT_PATH := $(shell pwd)/..
 LIB_PATH_NAME = libs
 BUILD_DIR_NAME = build
 CFLAGS = -g -Wall -Werror
