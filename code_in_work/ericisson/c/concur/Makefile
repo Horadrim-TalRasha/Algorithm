@@ -7,10 +7,6 @@ CFLAGS += -fPIC
 all: mk_build_dir check_depends $(OBJS) $(BIN) $(SHARE) $(ARCHIVE)
 
 
-clean:
-	rm -rf $(BUILD_DIR_NAME) $(BIN) $(SHARE) $(ARCHIVE)
-
-
 $(BIN): $(OBJS)
 	$(CC) $(CFLAGS) -o $@  $(OBJS)
 

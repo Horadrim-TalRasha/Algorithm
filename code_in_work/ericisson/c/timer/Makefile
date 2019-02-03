@@ -6,11 +6,10 @@ LD_FLAGS += -L../$(LIB_PATH_NAME) $(addprefix -l, $(DEPEND_PROS))
 LD_FLAGS += -Wl,-rpath=$(CURRENT_PATH)/$(LIB_PATH_NAME)
 CFLAGS += -fPIC
 
+-include $(DEPS)
+
 all: mk_build_dir check_depends $(OBJS) $(BIN) $(SHARE) $(ARCHIVE)
 
-
-clean:
-	rm -rf $(BUILD_DIR_NAME) $(BIN) $(SHARE) $(ARCHIVE)
 
 $(BIN): $(OBJS)
 	$(CC) $(CFLAGS) $(LD_FLAGS) -o $@  $(OBJS) -lpthread

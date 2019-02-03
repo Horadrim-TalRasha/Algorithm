@@ -13,7 +13,7 @@ ifdef SUBDIRS
 endif
 
 
-clean:
+clean::
 ifdef SUBDIRS
 	@for dir in $(SUBDIRS) ;\
 	do\
