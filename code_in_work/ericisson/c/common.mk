@@ -10,6 +10,9 @@ OBJS := $(SRC:./%.c=./$(BUILD_DIR_NAME)/%.o)
 DEPS := $(SRC:./%.c=./$(BUILD_DIR_NAME)/%.d)
 
 
+-include $(DEPS)
+
+
 all:
 
 mk_build_dir:
