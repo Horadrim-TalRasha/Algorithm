@@ -12,66 +12,28 @@
 	"buffers":
 	[
 		{
-			"file": "timer/main.c",
+			"file": "arch.mk",
 			"settings":
 			{
-				"buffer_size": 73,
-				"line_ending": "Windows"
+				"buffer_size": 45,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "Makefile",
 			"settings":
 			{
-				"buffer_size": 306,
+				"buffer_size": 289,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "timer/depends.mk",
-			"settings":
-			{
-				"buffer_size": 19,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "include ../common.mk\ninclude depends.mk\ninclude loc_config.mk\n\n\n\n\nall: mk_build_dir check_depends $(OBJS) $(BIN) $(SHARE) $(ARCHIVE)\n\t## Will add some message.\n\n\nclean:\n\trm -rf $(BUILD_DIR_NAME) $(BIN) $(SHARE) $(ARCHIVE)\n\n\n$(BIN): $(OBJS)\n\t$(CC) $(CFLAGS) -o $@  $(OBJS) -lpthread\n\n$(SHARE): $(OBJS)\n\tgcc -shared -o $@ $(OBJS) -lpthread\n\n$(ARCHIVE): $(OBJS)\n\tar -crv $@ $(OBJS)\n\n\n.PHONY: all clean",
 			"file": "timer/Makefile",
-			"file_size": 421,
-			"file_write_time": 131934026112909000,
 			"settings":
 			{
-				"buffer_size": 398,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "timer/loc_config.mk",
-			"settings":
-			{
-				"buffer_size": 110,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "utils/loc_config.mk",
-			"settings":
-			{
-				"buffer_size": 88,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "utils/depends.mk",
-			"settings":
-			{
-				"buffer_size": 0,
+				"buffer_size": 453,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -80,25 +42,7 @@
 			"file": "common.mk",
 			"settings":
 			{
-				"buffer_size": 333,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "arch.mk",
-			"settings":
-			{
-				"buffer_size": 15,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "utils/Makefile",
-			"settings":
-			{
-				"buffer_size": 371,
+				"buffer_size": 732,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -148,13 +92,20 @@
 	},
 	"expanded_folders":
 	[
-		"/Y/MPS_DEV_REPO/ehiclxa/projs/c",
-		"/Y/MPS_DEV_REPO/ehiclxa/projs/c/libs",
-		"/Y/MPS_DEV_REPO/ehiclxa/projs/c/timer",
-		"/Y/MPS_DEV_REPO/ehiclxa/projs/c/utils"
+		"/home/lichou/Algorithm/code_in_work/ericisson/c",
+		"/home/lichou/Algorithm/code_in_work/ericisson/c/timer"
 	],
 	"file_history":
 	[
+		"/home/lichou/Algorithm/code_in_work/ericisson/c/utils/Makefile",
+		"/home/lichou/Algorithm/code_in_work/ericisson/c/common.mk",
+		"/home/lichou/Algorithm/code_in_work/ericisson/c/utils/depends.mk",
+		"/home/lichou/Algorithm/code_in_work/ericisson/c/utils/loc_config.mk",
+		"/home/lichou/Algorithm/code_in_work/ericisson/c/timer/loc_config.mk",
+		"/home/lichou/Algorithm/code_in_work/ericisson/c/timer/Makefile",
+		"/home/lichou/Algorithm/code_in_work/ericisson/c/timer/depends.mk",
+		"/home/lichou/Algorithm/code_in_work/ericisson/c/Makefile",
+		"/home/lichou/Algorithm/code_in_work/ericisson/c/timer/main.c",
 		"/Y/MPS_DEV_REPO/ehiclxa/projs/c/config.mk",
 		"/Y/MPS_DEV_REPO/ehiclxa/projs/c/timer/main.c",
 		"/Y/MPS_DEV_REPO/ehiclxa/ehiclxa_rdc_gmpc_fix_17_linux/gmpc.17.sublime-project",
@@ -204,108 +155,24 @@
 	"groups":
 	[
 		{
-			"selected": 8,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "timer/main.c",
+					"file": "arch.mk",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 73,
+						"buffer_size": 45,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Makefile",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 306,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								305,
-								288
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "timer/depends.mk",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								19,
-								19
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "timer/Makefile",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 398,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								221,
-								162
+								45,
+								45
 							]
 						],
 						"settings":
@@ -320,104 +187,49 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "timer/loc_config.mk",
+					"buffer": 1,
+					"file": "Makefile",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 110,
+						"buffer_size": 289,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								80,
-								80
+								15,
+								15
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "utils/loc_config.mk",
+					"buffer": 2,
+					"file": "timer/Makefile",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 88,
+						"buffer_size": 453,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								85,
-								85
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "utils/depends.mk",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "common.mk",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 333,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								21,
-								35
+								238,
+								238
 							]
 						],
 						"settings":
@@ -432,20 +244,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "arch.mk",
+					"buffer": 3,
+					"file": "common.mk",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15,
+						"buffer_size": 732,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								15,
-								15
+								536,
+								536
 							]
 						],
 						"settings":
@@ -457,34 +269,6 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "utils/Makefile",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 371,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								139,
-								139
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
 					"type": "text"
 				}
 			]

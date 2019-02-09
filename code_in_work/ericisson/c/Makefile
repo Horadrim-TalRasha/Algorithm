@@ -1,5 +1,4 @@
 include arch.mk
-include common.mk
 
 all:
 ifdef SUBDIRS

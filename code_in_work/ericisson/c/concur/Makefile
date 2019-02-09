@@ -4,7 +4,7 @@ include loc_config.mk
 
 CFLAGS += -fPIC
 
-all: mk_build_dir check_depends $(OBJS) $(BIN) $(SHARE) $(ARCHIVE)
+all:: check_depends $(OBJS) $(BIN) $(SHARE) $(ARCHIVE)
 
 
 $(BIN): $(OBJS)
