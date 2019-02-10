@@ -1,1 +1,1 @@
-SUBDIRS = concur timer
+SUBDIRS = concur timer poker
