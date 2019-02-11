@@ -1,5 +1,6 @@
 #ifndef DEFS_H
 #define DEFS_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -30,7 +31,19 @@ enum Numbers
     MAX_Number
 };
 
-const short red_joker_ = MAX_Number + 2;
-const short black_joker_ = MAX_Number + 1;
+const short red_joker_;
+const short black_joker_;
+
+typedef struct PokerCard
+{
+	enum Suits suit_;
+	enum Numbers number_;
+} PokerCard;
+
+
+typedef struct Deck
+{
+	PokerCard deck[MAX_Number * MAX_Suit + 2];
+} Deck;
 
 #endif
