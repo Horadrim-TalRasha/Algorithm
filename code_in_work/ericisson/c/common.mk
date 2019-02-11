@@ -20,16 +20,14 @@ check_depends:
 .PHONY: mk_build_dir check_depends
 
 
-$(BUILD_DIR_NAME)/%.d: %.c
-	@set -e; \
-	rm -f $@; \
-	mkdir -p $(BUILD_DIR_NAME); \
-	$(CC) -MM $(INCLUDE_PATH) $(CFLAGS) $< > $@.tmp;\
-	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.tmp > $@
+${BUILD_DIR_NAME}/%.d: %.c
+	@mkdir -p ${BUILD_DIR_NAME}
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) -MM -MT "$(BUILD_DIR_NAME)/$(subst .c,.o,${notdir $<}) $(BUILD_DIR_NAME)/$(subst .c,.d,${notdir $<})" -MF "$(subst .c,.d,${BUILD_DIR_NAME}/${notdir $<})" $<
 
 
+ifneq ($(MAKECMDGOALS),clean)
 -include $(DEPS)
-
+endif
 
 $(BUILD_DIR_NAME)/%.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@
