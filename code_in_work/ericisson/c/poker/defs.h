@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 enum Suits
 {
@@ -33,6 +34,8 @@ enum Numbers
 
 const short red_joker_;
 const short black_joker_;
+const char max_cards_in_deck_;
+const char max_decks_;
 
 typedef struct PokerCard
 {
@@ -43,7 +46,7 @@ typedef struct PokerCard
 
 typedef struct Deck
 {
-	PokerCard deck[MAX_Number * MAX_Suit + 2];
+	PokerCard * cards_in_deck_;
 } Deck;
 
 #endif
