@@ -1,0 +1,5 @@
+TIPS:
+
+1. To generate coverage report "-fprofile-arcs -ftest-coverage" is needed when compiling and linking2. After building, *.gcno will be generated and after executing target binary *.gcda will be generated.
+3. To get coverage report, run "gcov xxx.c" and *.c *.gcda and *.gcno shall be in same folder.
+

@@ -1,1 +1,1 @@
-SUBDIRS = concur timer poker
+SUBDIRS = concur timer poker coverage
