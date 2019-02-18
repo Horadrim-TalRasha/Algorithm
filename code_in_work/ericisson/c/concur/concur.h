@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <errno.h>
+#include <unistd.h>
 
 typedef  void* (*thread_func)(void *);
 

@@ -17,13 +17,30 @@ static void * thread_pool_entry(void * thread_params)
 
         struct timespec abstime;
         clock_gettime(CLOCK_REALTIME, &abstime);
-        abstime.tv_sec += 5;
+        abstime.tv_sec += 10;
 
         printf("before timed wait\n");
         int timeout = pthread_cond_timedwait(&thread_pool_cond_, &thread_pool_lock_, &abstime);
         printf("thread: %d passed clock and timeout = %d\n", *(int *)thread_params, timeout);
         pthread_mutex_unlock(&thread_pool_lock_);
     }
+    return NULL;
+}
+
+static void * thread_monitor_entry(void * thread_params)
+{
+    while(is_thread_pool_running)
+    {
+        printf("before mutex lock\n");
+        pthread_mutex_lock(&thread_pool_lock_);
+        printf("after mutex lock\n");
+
+        printf("before wait\n");
+        pthread_cond_wait(&thread_pool_cond_, &thread_pool_lock_);
+        printf("after wait\n");
+        pthread_mutex_unlock(&thread_pool_lock_);
+    }
+
     return NULL;
 }
 
@@ -53,7 +70,11 @@ int startThreads(int threadNum)
     {
     	pthread_t thread_id;
     	pthread_create(&thread_id, NULL, thread_pool_entry, &i);
+    	sleep(1);
     }
+
+    pthread_t thread_monitor;
+    pthread_create(&thread_monitor, NULL, thread_monitor_entry, NULL);
 
     pthread_mutex_lock(&dead_lock_);
     pthread_mutex_lock(&dead_lock_);
